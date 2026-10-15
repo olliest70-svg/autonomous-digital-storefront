@@ -1,52 +1,47 @@
-import Link from 'next/link';
-import products from '../../data/products.json';
+import Link from "next/link";
+import products from "@/data/products.json";
 
 interface SuccessProps {
-  searchParams: {
-    session_id?: string;
+  searchParams: Promise<{
+    order_id?: string;
     product_id?: string;
-  };
+  }>;
 }
 
-export default function SuccessPage({ searchParams }: SuccessProps) {
-  const productId = searchParams.product_id;
+export default async function SuccessPage({ searchParams }: SuccessProps) {
+  const { product_id: productId, order_id: orderId } = await searchParams;
   const product = products.find((p) => p.id === productId);
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center px-6">
-      <div className="max-w-md w-full bg-white border border-slate-200 rounded-2xl shadow-sm p-8 text-center">
-        <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-navy px-6">
+      <div className="w-full max-w-md rounded-2xl border border-white/10 bg-slate-800/40 p-8 text-center shadow-xl">
+        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/15 text-xl font-bold text-emerald-300">
           ✓
         </div>
-        
-        <h1 className="text-2xl font-bold text-slate-900 mb-2">Payment Successful!</h1>
-        <p className="text-sm text-slate-600 mb-6">
+        <h1 className="mb-2 text-2xl font-bold text-white">Order Confirmed!</h1>
+        <p className="mb-6 text-sm text-slate-400">
           Thank you for your purchase. Your digital product is ready for download below.
         </p>
 
         {product ? (
-          <div className="bg-slate-50 border border-slate-100 rounded-xl p-4 mb-6 text-left">
-            <h3 className="font-semibold text-slate-900">{product.title}</h3>
-            <p className="text-xs text-slate-500 mt-1">Instant Access Package</p>
-            
+          <div className="mb-6 rounded-xl border border-white/10 bg-navy/60 p-4 text-left">
+            <h3 className="font-semibold text-white">{product.title}</h3>
+            <p className="mt-1 text-xs text-slate-500">{orderId ? `Order ${orderId}` : "Instant Access Package"}</p>
             <a
               href={product.fileUrl}
               download
-              className="mt-4 block w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-medium py-2.5 rounded-lg text-sm transition"
+              className="mt-4 block w-full rounded-lg bg-brand py-2.5 text-center text-sm font-medium text-white transition hover:bg-brand-hover"
             >
               Download File Now
             </a>
           </div>
         ) : (
-          <p className="text-sm text-amber-600 mb-6">
-            Product details couldn't be loaded automatically, but your order was processed successfully. Check your email for files.
+          <p className="mb-6 text-sm text-amber-300">
+            Product details couldn&apos;t be loaded automatically. Check your email for your files.
           </p>
         )}
 
-        <Link
-          href="/"
-          className="text-sm font-medium text-indigo-600 hover:text-indigo-500 transition"
-        >
+        <Link href="/" className="text-sm font-medium text-indigo-300 transition hover:text-indigo-200">
           ← Return to Storefront
         </Link>
       </div>

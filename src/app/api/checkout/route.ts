@@ -1,44 +1,40 @@
-import { NextResponse } from 'next/server';
-import Stripe from 'stripe';
-import products from '../../../data/products.json';
+import { NextResponse } from "next/server";
+import products from "@/data/products.json";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2023-10-16',
-});
+interface CheckoutBody {
+  productId?: unknown;
+  email?: unknown;
+}
 
 export async function POST(request: Request) {
+  let body: CheckoutBody;
   try {
-    const formData = await request.formData();
-    const productId = formData.get('productId');
-
-    const product = products.find((p) => p.id === productId);
-
-    if (!product) {
-      return NextResponse.json({ error: 'Product not found' }, { status: 404 });
-    }
-
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          price_data: {
-            currency: product.currency,
-            product_data: {
-              name: product.title,
-              description: product.description,
-            },
-            unit_amount: product.price,
-          },
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: `${request.headers.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}&product_id=${product.id}`,
-      cancel_url: `${request.headers.get('origin')}/`,
-    });
-
-    return NextResponse.redirect(session.url!, 303);
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
+
+  const { productId, email } = body ?? {};
+
+  if (typeof productId !== "string" || productId.trim() === "") {
+    return NextResponse.json({ error: "productId is required" }, { status: 400 });
+  }
+  if (email !== undefined && typeof email !== "string") {
+    return NextResponse.json({ error: "email must be a string" }, { status: 400 });
+  }
+
+  const product = products.find((p) => p.id === productId);
+  if (!product) {
+    return NextResponse.json({ error: "Product not found" }, { status: 404 });
+  }
+
+  return NextResponse.json(
+    {
+      success: true,
+      orderId: `ord_${Date.now()}`,
+      downloadUrl: product.fileUrl,
+      message: "Your download is ready.",
+    },
+    { status: 200 }
+  );
 }

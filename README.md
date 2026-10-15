@@ -1,53 +1,131 @@
-# autonomous-digital-storefront# 🚀 Autonomous Digital Storefront
+# 🚀 Autonomous Digital Storefront
 
-An AI-driven, self-running e-commerce platform powered by **Abacus.AI multi-agent orchestration**. This repository houses a fully automated storefront that researches, builds, markets, and sells digital products with minimal human intervention.
+An AI-driven e-commerce storefront that sells **downloadable digital productivity products**: Notion systems, AI prompt libraries, and workflow blueprints for freelancers, creators, and remote teams. A team of Abacus.AI agents runs the platform. They research trending niches, write the product catalog, and push updates directly to this repository.
+
+The current catalog has **8 products** chosen from 2026's highest-margin, lowest-saturation niches: freelancer business OS, AI prompt libraries, async remote-team workflows, creator content OS, ADHD/neurodivergent planning, solopreneur finance, client onboarding, and Personal Knowledge Management.
 
 ---
 
-## 🛍️ What Does the Storefront Sell?
-The store specializes in **high-margin digital products** that require zero physical inventory and offer instant download fulfillment:
-* **AI & Productivity Dashboards:** Notion systems, custom workflow templates, and advanced prompt engineering kits.
-* **"Business-in-a-Box" Kits:** Launch blueprints, sales page frameworks, and marketing templates for creators and remote professionals.
-* **Micro-Guides & E-books:** Actionable digital guides targeting modern digital skills and remote work optimization.
+## 🛠️ Tech Stack
+
+- **Next.js** (App Router, TypeScript), using `next.config.ts`
+- **React**
+- **Tailwind CSS** with no external UI library
+- **Inter** font via `next/font`
+- A JSON product catalog (`src/data/products.json`)
+
+**Design:** deep navy (`#0F172A`) background, electric indigo (`#6366F1`) accents, white text, giving a premium dark SaaS look.
+
+---
+
+## ⚡ Local Development
+
+Requirements: Node.js 18.18+ (Node 20+ recommended).
+
+```bash
+npm install && npm run dev
+```
+
+Then open <http://localhost:3000>.
+
+| Script          | Description                      |
+| --------------- | -------------------------------- |
+| `npm run dev`   | Start the dev server             |
+| `npm run build` | Production build + type checking |
+| `npm run start` | Serve the production build       |
+
+---
+
+## 📂 Project Structure
+
+```text
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx            # Root layout: metadata, Inter font, global styles
+│   │   ├── page.tsx              # Homepage: hero + product grid
+│   │   ├── globals.css           # Tailwind base styles
+│   │   ├── success/page.tsx      # Order confirmation / download page
+│   │   └── api/checkout/route.ts # POST /api/checkout (mock order confirmation)
+│   ├── components/
+│   │   ├── HeroBanner.tsx        # Full-width hero with tagline + CTA
+│   │   ├── ProductGrid.tsx       # Responsive 1 / 2 / 3-column grid
+│   │   └── ProductCard.tsx       # Badge, title, price, clamped description, Buy Now
+│   └── data/
+│       └── products.json         # Product catalog
+├── public/downloads/             # Downloadable product files (placeholder)
+├── next.config.ts
+├── tailwind.config.ts
+├── postcss.config.js
+├── tsconfig.json
+└── package.json
+```
+
+---
+
+## 🧾 Product Catalog Schema
+
+`src/data/products.json` is a JSON **array** of product objects:
+
+| Field         | Type     | Required | Description                                                                                 |
+| ------------- | -------- | -------- | ------------------------------------------------------------------------------------------- |
+| `id`          | `string` | ✅       | Unique, stable identifier (convention: `prod_<snake_case_name>`). The checkout API uses it. |
+| `title`       | `string` | ✅       | Product name shown on the card.                                                             |
+| `price`       | `number` | ✅       | Price in the **smallest currency unit** (cents). `4700` is shown as `$47.00`.               |
+| `currency`    | `string` | ✅       | ISO 4217 currency code in lowercase (e.g. `"usd"`).                                         |
+| `description` | `string` | ✅       | Marketing copy. The card clamps it to 3 lines.                                              |
+| `fileUrl`     | `string` | ✅       | Path to the downloadable file, relative to `public/` (e.g. `/downloads/my-product.zip`).    |
+| `badge`       | `string` | ❌       | Optional label pill: `"Best Seller"` (amber), `"Trending"` (violet), `"New"` (emerald).     |
+
+Example:
+
+```json
+{
+  "id": "prod_freelancer_business_os",
+  "title": "Freelancer Business OS — Complete Notion HQ",
+  "price": 4700,
+  "currency": "usd",
+  "description": "A battle-tested Notion command centre...",
+  "fileUrl": "/downloads/freelancer-business-os.zip",
+  "badge": "Best Seller"
+}
+```
+
+---
+
+## ➕ Adding a New Product
+
+1. Put the deliverable file in `public/downloads/` (e.g. `public/downloads/my-new-product.zip`).
+2. Append a new object to the array in `src/data/products.json`. Give it a **unique** `id`, set `price` in cents, and point `fileUrl` to `/downloads/my-new-product.zip`.
+3. Optionally set `badge` to `"Best Seller"`, `"Trending"`, or `"New"`.
+4. Run `npm run build` to check that the JSON and types are valid, then commit and push.
+
+The homepage grid and the checkout API both read from `products.json`, so you don't need to change any code.
+
+---
+
+## 🔌 API: `POST /api/checkout`
+
+Request body:
+
+```json
+{ "productId": "prod_pkm_knowledge_base", "email": "buyer@example.com" }
+```
+
+`email` is optional.
+
+| Status | Response                                                                                                         |
+| ------ | ---------------------------------------------------------------------------------------------------------------- |
+| `200`  | `{ "success": true, "orderId": "ord_<timestamp>", "downloadUrl": "/downloads/...", "message": "Your download is ready." }` |
+| `404`  | `{ "error": "Product not found" }`                                                                               |
+| `400`  | `{ "error": "..." }`: invalid JSON, missing `productId`, or a non-string `email`                                  |
+
+> This is a **mock** checkout. No payment is taken. Connecting a payment provider such as Stripe is a planned next step.
 
 ---
 
 ## 🤖 What Makes It "Autonomous"?
-Unlike traditional e-commerce sites, this platform leverages a coordinated team of specialized LLM agents hosted on **Abacus.AI** to run operations autonomously:
-1. **AI-Generated Product Creation:** The *Product & Content Agent* continuously scans market trends, writes structured guides, and generates new digital inventory weekly.
-2. **Dynamic Listing & Front-End Updates:** The *Full-Stack Developer Agent* automatically writes code, updates the product catalog, and pushes changes straight to this GitHub repository.
-3. **Automated Marketing & Traffic:** The *Growth Marketing Agent* drafts SEO-optimized product descriptions, blog posts, and social media promotion snippets.
-4. **Instant Fulfillment & Order Management:** Post-purchase workflows automatically verify payments via Stripe and instantly provision secure download links to buyers.
 
----
-
-## ✨ Key Features
-* **Automated Product Catalog:** Dynamically updates as new products are created by the AI agents.
-* **Secure Checkout:** Integrated with **Stripe Payment Links** for seamless, secure transactions.
-* **Instant Digital Delivery:** Automated post-checkout routing providing secure access to purchased digital assets.
-* **Responsive UI:** Clean, modern design optimized for conversion across desktop and mobile devices.
-* **Scalable Database Backend:** Robust tracking for orders, customer metadata, and inventory status.
-
----
-
-## 🛠️ Tech Stack Preference
-* **Front-End & Framework:** Next.js (TypeScript) + React
-* **Styling:** Tailwind CSS for fast, responsive UI design
-* **Database & ORM:** PostgreSQL for reliable transaction and product data storage
-* **AI Orchestration:** Abacus.AI Multi-Agent APIs & Workflows
-* **Hosting & Deployment:** Vercel (linked to this GitHub repository for continuous automated deployment)
-
----
-
-## 📂 Repository Structure
-
-```text
-├── src/
-│   ├── app/              # Next.js App Router pages (Home, Product Catalog, Checkout)
-│   ├── components/       # Reusable UI components (Tailwind styled)
-│   └── lib/              # Database connection (PostgreSQL) and utilities
-├── public/
-│   └── assets/           # Digital product preview images and downloadable assets
-├── agents/               # Configuration files and system prompts for Abacus.AI agents
-├── package.json          # Project dependencies
-└── README.md             # Project documentation
+1. **Product research & creation:** agents scan market trends and generate new digital inventory.
+2. **Catalog & front-end updates:** a developer agent updates `products.json` and pushes to this repo.
+3. **Marketing:** agents write SEO-optimized product copy and promotional content.
+4. **Fulfillment:** post-purchase flows deliver download links instantly.

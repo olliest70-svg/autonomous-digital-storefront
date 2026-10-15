@@ -1,0 +1,19 @@
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+
+export const metadata: Metadata = {
+  title: "Autonomous Digital Storefront — Premium Notion Templates & Workflow Systems",
+  description:
+    "Premium Notion templates & workflow systems used by 10,000+ remote professionals. Instant digital download.",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={inter.variable}>
+      <body className="min-h-screen bg-navy font-sans text-white">{children}</body>
+    </html>
+  );
+}
