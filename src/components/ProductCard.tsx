@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { formatPrice } from "@/lib/format";
 
 export type Badge = "Best Seller" | "Trending" | "New";
 
@@ -20,19 +21,9 @@ const BADGE_STYLES: Record<string, string> = {
   New: "bg-emerald-500/15 text-emerald-300 ring-emerald-500/40",
 };
 
-export function formatPrice(amount: number, currency = "usd") {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: currency.toUpperCase(),
-    minimumFractionDigits: 2,
-  }).format(amount / 100);
-}
+export { formatPrice };
 
-type Status =
-  | { state: "idle" }
-  | { state: "loading" }
-  | { state: "success"; message: string; downloadUrl: string; orderId: string }
-  | { state: "error"; message: string };
+type Status = { state: "idle" } | { state: "loading" } | { state: "error"; message: string };
 
 export default function ProductCard({ product }: { product: Product }) {
   const [status, setStatus] = useState<Status>({ state: "idle" });
@@ -46,11 +37,12 @@ export default function ProductCard({ product }: { product: Product }) {
         body: JSON.stringify({ productId: product.id }),
       });
       const data = await res.json();
-      if (!res.ok || !data.success) {
+      if (!res.ok || typeof data.url !== "string") {
         setStatus({ state: "error", message: data.error ?? "Checkout failed. Please try again." });
         return;
       }
-      setStatus({ state: "success", message: data.message, downloadUrl: data.downloadUrl, orderId: data.orderId });
+      // Redirect to Stripe-hosted Checkout; keep loading state while navigating.
+      window.location.href = data.url;
     } catch {
       setStatus({ state: "error", message: "Network error. Please try again." });
     }
@@ -77,19 +69,10 @@ export default function ProductCard({ product }: { product: Product }) {
             disabled={status.state === "loading"}
             className="rounded-lg bg-brand px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-hover focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 focus:ring-offset-navy disabled:cursor-wait disabled:opacity-60"
           >
-            {status.state === "loading" ? "Processing…" : "Buy Now →"}
+            {status.state === "loading" ? "Redirecting…" : "Buy Now →"}
           </button>
         </div>
 
-        {status.state === "success" && (
-          <div role="status" className="mt-4 rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3 text-sm text-emerald-300">
-            {status.message}{" "}
-            <a href={status.downloadUrl} download className="font-semibold underline hover:text-emerald-200">
-              Download
-            </a>
-            <span className="mt-1 block text-xs text-emerald-400/70">Order {status.orderId}</span>
-          </div>
-        )}
         {status.state === "error" && (
           <div role="alert" className="mt-4 rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">
             {status.message}
