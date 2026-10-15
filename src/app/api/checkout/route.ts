@@ -55,6 +55,10 @@ export async function POST(request: Request) {
           },
         },
       ],
+      // Managed Payments (on by default for this account) requires a tax_code per product
+      // and forces automatic_tax on; opt out of both for this session.
+      managed_payments: { enabled: false },
+      automatic_tax: { enabled: false },
       metadata: { productId: product.id },
       success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/`,

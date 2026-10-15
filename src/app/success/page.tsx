@@ -69,11 +69,10 @@ export default async function SuccessPage({ searchParams }: SuccessProps) {
               )}
               {isPaid && product && (
                 <a
-                  href={product.fileUrl}
-                  download
+                  href={`/api/download?session_id=${encodeURIComponent(session.id)}&product_id=${encodeURIComponent(product.id)}`}
                   className="mt-4 block w-full rounded-lg bg-brand py-2.5 text-center text-sm font-medium text-white transition hover:bg-brand-hover"
                 >
-                  Download File Now
+                  Download your product
                 </a>
               )}
             </div>
