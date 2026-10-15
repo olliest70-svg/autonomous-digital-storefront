@@ -1,5 +1,6 @@
 import HeroBanner from "@/components/HeroBanner";
 import ProductGrid from "@/components/ProductGrid";
+import ReviewsSection from "@/components/ReviewsSection";
 import products from "@/data/products.json";
 import type { Product } from "@/components/ProductCard";
 
@@ -14,6 +15,7 @@ export default function HomePage() {
         </div>
         <ProductGrid products={products as Product[]} />
       </section>
+      <ReviewsSection />
       <footer className="border-t border-white/10 py-8 text-center text-sm text-slate-500">
         © {new Date().getFullYear()} Autonomous Digital Storefront. All rights reserved.
       </footer>

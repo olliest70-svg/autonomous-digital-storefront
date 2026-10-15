@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { formatPrice } from "@/lib/format";
 import { badgeClass } from "@/lib/badges";
+import { getProductRating } from "@/data/reviews";
 import BuyButton from "./BuyButton";
+import Stars from "./Stars";
 
 export type Badge = "Best Seller" | "Trending" | "New";
 
@@ -19,6 +21,7 @@ export { formatPrice };
 
 export default function ProductCard({ product }: { product: Product }) {
   const href = `/products/${product.id}`;
+  const rating = getProductRating(product.id);
 
   return (
     <article className="group flex flex-col rounded-2xl border border-white/10 bg-slate-800/40 p-6 shadow-xl transition hover:-translate-y-1 hover:border-brand/60 hover:shadow-brand/10">
@@ -32,6 +35,14 @@ export default function ProductCard({ product }: { product: Product }) {
           {product.title}
         </Link>
       </h3>
+      {rating.count > 0 && (
+        <p className="mt-1.5 flex items-center gap-1.5 text-xs text-slate-400">
+          <Stars rating={rating.average} size="text-xs" />
+          <span>
+            {rating.average.toFixed(1)} ({rating.count} {rating.count === 1 ? "review" : "reviews"})
+          </span>
+        </p>
+      )}
       <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-slate-400">{product.description}</p>
       <Link href={href} className="mt-3 w-fit text-sm font-medium text-indigo-300 transition hover:text-indigo-200">
         Learn more →
