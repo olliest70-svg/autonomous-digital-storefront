@@ -1,0 +1,14 @@
+autonomous-digital-storefront/
+├── src/
+│   ├── app/
+│   │   ├── page.tsx               # Storefront Landing & Catalog Page
+│   │   ├── api/
+│   │   │   └── checkout/
+│   │   │       └── route.ts       # Stripe Checkout API Route
+│   │   └── success/
+│   │       └── page.tsx           # Product Download Page
+│   └── data/
+│       └── products.json          # Agent-managed product catalog
+├── public/
+│   └── downloads/                 # Secure digital assets (Markdown/PDFs)
+└── package.json
