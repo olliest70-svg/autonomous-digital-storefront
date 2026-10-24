@@ -1,7 +1,7 @@
 [
   {
     "id": "prod_freelancer_business_os",
-    "title": "Freelancer Business OS — Complete Notion HQ",
+    "title": "Freelancer Business OS — Notion CRM, Invoicing & Tax Tracker",
     "price": 4700,
     "currency": "usd",
     "description": "A battle-tested Notion command centre that replaces five disconnected tools with one frictionless workspace. Manage clients, scope projects, track invoices, estimate quarterly taxes, and review your pipeline — all from a single linked database system. Freelancers who switch report saving 4+ hours per week on admin overhead.",
@@ -10,7 +10,7 @@
   },
   {
     "id": "prod_ai_prompt_arsenal",
-    "title": "AI Prompt Arsenal — 500+ Pro Prompts for Creators",
+    "title": "AI Prompt Arsenal — 500+ ChatGPT & Claude Prompts for Creators",
     "price": 2700,
     "currency": "usd",
     "description": "Stop wasting hours engineering mediocre prompts. This vault of 500+ battle-tested ChatGPT & Claude prompts is organized by use case — content creation, client emails, SEO copy, social hooks, and code — so you can produce pro-quality output in seconds. Each prompt includes a fill-in-the-blank variable template and a real before/after example.",
@@ -19,7 +19,7 @@
   },
   {
     "id": "prod_async_remote_blueprint",
-    "title": "Async Remote Team Blueprint — Zero-Meeting Workflow System",
+    "title": "Async Remote Blueprint — Zero-Meeting System for Remote Teams",
     "price": 3700,
     "currency": "usd",
     "description": "A plug-and-play Notion + Markdown system that eliminates status meetings and aligns distributed teams without a single synchronous call. Includes async standup templates, decision-log frameworks, project handoff protocols, and a meeting-cost calculator that makes the ROI undeniable to any manager. Adopted by 200+ remote teams worldwide.",
@@ -28,7 +28,7 @@
   },
   {
     "id": "prod_creator_content_os",
-    "title": "Creator Content OS — YouTube, Newsletter & Social in One Hub",
+    "title": "Creator Content OS — Plan, Publish & Repurpose Across Every Channel",
     "price": 3900,
     "currency": "usd",
     "description": "The unified content command centre used by six-figure creators to plan, produce, and repurpose content across YouTube, newsletters, and social channels — without burning out. Features an editorial calendar, idea capture pipeline, performance tracker, and brand-voice swipe file. Slash your content production time by 60% in the first week.",
@@ -37,7 +37,7 @@
   },
   {
     "id": "prod_adhd_focus_flow",
-    "title": "ADHD Focus Flow System — Notion Planner for Neurodivergent Minds",
+    "title": "ADHD Focus Flow — Notion Planner for Neurodivergent & ADHD Brains",
     "price": 1900,
     "currency": "usd",
     "description": "Designed by an ADHD coach specifically for time-blind, easily overwhelmed brains. Replaces wall-of-tasks anxiety with a visual 'Today Board,' a dopamine-menu break selector, and a 3-priority-only daily focus system. Over 3,000 neurodivergent users report finishing more in one week than they previously did in a month.",
@@ -46,7 +46,7 @@
   },
   {
     "id": "prod_solopreneur_finance_vault",
-    "title": "Solopreneur Finance Vault — Tax, Income & Invoice Tracker",
+    "title": "Solopreneur Finance Vault — Tax, Invoicing & Profit Tracker (US, UK & CA)",
     "price": 2900,
     "currency": "usd",
     "description": "Stop dreading tax season. This Notion + Google Sheets hybrid tracks every invoice, auto-calculates your quarterly estimated tax liability, and gives you a real-time profit dashboard so you always know your true take-home pay. Built for freelancers, consultants, and indie hackers in the US, UK, and Canada — no accountant required.",
@@ -55,7 +55,7 @@
   },
   {
     "id": "prod_client_onboarding_accelerator",
-    "title": "Client Onboarding Accelerator — First-Impression Notion Kit",
+    "title": "Client Onboarding Kit — Notion Portal, Scope Tracker & Intake Forms",
     "price": 1900,
     "currency": "usd",
     "description": "Win client confidence on day one with a polished onboarding portal that runs itself. Includes a branded welcome page template, auto-populated project scope tracker, intake questionnaire, revision-request form, and communication guidelines — all delivered to clients via a single Notion share link. Cut your onboarding setup time from 3 hours to 15 minutes.",
@@ -64,7 +64,7 @@
   },
   {
     "id": "prod_pkm_knowledge_base",
-    "title": "PKM Knowledge Base — Second Brain for Deep Work",
+    "title": "Second Brain & PKM System — Zettelkasten Knowledge Base for Deep Work",
     "price": 5700,
     "currency": "usd",
     "description": "A Zettelkasten-inspired Personal Knowledge Management system built in Notion that turns scattered reading notes, ideas, and bookmarks into a connected, searchable knowledge graph. Includes PARA folder architecture, progressive-summarisation templates, weekly review rituals, and a 30-page quick-start guide. The last note-taking system you will ever need.",

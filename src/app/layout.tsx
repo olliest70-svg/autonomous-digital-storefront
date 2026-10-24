@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Autonomous Digital Storefront — Premium Notion Templates & Workflow Systems",
+  title: "Deep Work Templates — Premium Notion Templates & Workflow Systems",
   description:
     "Premium Notion templates & workflow systems used by 10,000+ remote professionals. Instant digital download.",
 };

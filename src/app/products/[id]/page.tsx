@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const product = getProduct(id);
   if (!product) return { title: "Product not found" };
   return {
-    title: `${product.title} | Autonomous Digital Storefront`,
+    title: `${product.title} | Deep Work Templates`,
     description: product.description.slice(0, 160),
   };
 }

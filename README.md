@@ -1,4 +1,4 @@
-# 🚀 Autonomous Digital Storefront
+# 🚀 Deep Work Templates
 
 An AI-driven e-commerce storefront that sells **downloadable digital productivity products**: Notion systems, AI prompt libraries, and workflow blueprints for freelancers, creators, and remote teams. A team of Abacus.AI agents runs the platform. They research trending niches, write the product catalog, and push updates directly to this repository.
 

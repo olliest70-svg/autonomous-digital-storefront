@@ -10,14 +10,14 @@ export default function HomePage() {
       <HeroBanner />
       <section id="products" className="mx-auto max-w-7xl scroll-mt-8 px-6 py-20">
         <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Featured Products</h2>
-          <p className="mt-3 text-slate-400">Instant download. Lifetime access. Built for remote professionals.</p>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Notion Templates &amp; Productivity Systems</h2>
+          <p className="mt-3 text-slate-400">Instant download. Lifetime access. Built for remote workers, freelancers &amp; creators.</p>
         </div>
         <ProductGrid products={products as Product[]} />
       </section>
       <ReviewsSection />
       <footer className="border-t border-white/10 py-8 text-center text-sm text-slate-500">
-        © {new Date().getFullYear()} Autonomous Digital Storefront. All rights reserved.
+        © {new Date().getFullYear()} Deep Work Templates. All rights reserved.
       </footer>
     </main>
   );
