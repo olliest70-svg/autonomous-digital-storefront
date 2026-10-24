@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 export const metadata: Metadata = {
   title: "Deep Work Templates — Premium Notion Templates & Workflow Systems",
   description:
-    "Premium Notion templates & workflow systems used by 10,000+ remote professionals. Instant digital download.",
+    "Premium Notion templates & workflow systems for remote workers, freelancers & creators. Instant digital download.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import products from "@/data/products.json";
 import { productDetails } from "@/data/productDetails";
+import { productHighlights } from "@/data/productHighlights";
 import BuyButton from "@/components/BuyButton";
 import { formatPrice } from "@/lib/format";
 import { badgeClass } from "@/lib/badges";
@@ -37,6 +38,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!product) notFound();
 
   const details = productDetails[product.id];
+  const highlight = productHighlights[product.id];
   const price = formatPrice(product.price, product.currency);
 
   return (
@@ -55,6 +57,17 @@ export default async function ProductPage({ params }: ProductPageProps) {
             )}
             <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl">{product.title}</h1>
             <p className="mt-6 text-base leading-relaxed text-slate-300">{product.description}</p>
+
+            {highlight && (
+              <div
+                id="highlights"
+                className="mt-10 rounded-2xl border border-brand/40 border-l-4 border-l-brand bg-slate-800/50 p-6 shadow-xl shadow-brand/10"
+              >
+                <p className="text-xs font-semibold uppercase tracking-widest text-indigo-300">Why people choose it</p>
+                <h2 className="mt-3 text-xl font-bold text-white">{highlight.headline}</h2>
+                <p className="mt-3 text-sm leading-relaxed text-slate-300">{highlight.body}</p>
+              </div>
+            )}
 
             {details && (
               <>

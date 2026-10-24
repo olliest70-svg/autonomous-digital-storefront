@@ -13,7 +13,7 @@ export default function HeroBanner() {
           Your Unfair Productivity Advantage
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-slate-300 sm:text-xl">
-          Premium Notion templates &amp; workflow systems used by 10,000+ remote professionals
+          Premium Notion templates &amp; workflow systems for remote workers, freelancers &amp; creators
         </p>
         <a
           href="#products"
